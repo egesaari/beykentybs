@@ -87,7 +87,7 @@
 
             <!-- Linktree Links Container -->
             <div id="linktree-container" class="space-y-4 max-w-md mx-auto">
-                <!-- JS ile dolacak -->
+                <!-- Buluttan dolacak -->
             </div>
         </section>
 
@@ -109,7 +109,7 @@
 
             <!-- Etkinlik Kartları Grid -->
             <div id="events-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- JS ile dolacak -->
+                <!-- Buluttan dolacak -->
             </div>
         </section>
 
@@ -262,7 +262,7 @@
                             </div>
                         </div>
 
-                        <!-- İKON SEÇİCİ (Görsel Butonlar) -->
+                        <!-- İKON SEÇİCİ -->
                         <div>
                             <label class="block text-xs font-bold text-slate-400 mb-2">İkon Seçin</label>
                             <input type="hidden" id="link-icon" value="fa-brands fa-instagram" required>
@@ -321,9 +321,26 @@
         </div>
     </div>
 
-    <!-- JavaScript -->
-    <script>
-        function toggleTheme() {
+    <!-- Firebase ve Sayfa Mantığı -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // Firebase Kimlik Bilgilerin (Ekran görüntünden doğrudan eklendi)
+        const firebaseConfig = {
+            apiKey: "AIzaSyCefVLizqka9z1bmygAAk3jtoJg9zQepKQ",
+            authDomain: "beykent-ybs.firebaseapp.com",
+            projectId: "beykent-ybs",
+            storageBucket: "beykent-ybs.firebasestorage.app",
+            messagingSenderId: "62537790178",
+            appId: "1:62537790178:web:69d7585fe681941c7464bb",
+            measurementId: "G-JM177ZYGDH"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        window.toggleTheme = function() {
             const html = document.documentElement;
             const icon = document.getElementById('theme-icon');
             if (html.classList.contains('dark')) {
@@ -345,41 +362,7 @@
             document.getElementById('theme-icon').className = 'fa-solid fa-moon';
         }
 
-        const defaultLinks = [
-            { id: 1, title: 'Instagram', url: 'https://instagram.com', icon: 'fa-brands fa-instagram' },
-            { id: 2, title: 'WhatsApp İletişim Hattı', url: 'https://whatsapp.com', icon: 'fa-brands fa-whatsapp' },
-            { id: 3, title: 'LinkedIn', url: 'https://linkedin.com', icon: 'fa-brands fa-linkedin' }
-        ];
-
-        const defaultEvents = [
-            {
-                id: 1,
-                title: 'YBS Kariyer Zirvesi 2026',
-                date: '2026-05-15T14:00',
-                image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80',
-                desc: 'Sektörün öncü isimleriyle bir araya geldiğimiz geleneksel kariyer zirvemiz.',
-                link: 'https://instagram.com'
-            },
-            {
-                id: 2,
-                title: 'Python ile Veri Analizi Atölyesi',
-                date: '2026-03-10T13:00',
-                image: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=80',
-                desc: 'Temel düzey Python programlama ve veri analizi kütüphaneleri eğitimi.',
-                link: 'https://instagram.com'
-            }
-        ];
-
-        if (!localStorage.getItem('ybs_links')) localStorage.setItem('ybs_links', JSON.stringify(defaultLinks));
-        if (!localStorage.getItem('ybs_events')) localStorage.setItem('ybs_events', JSON.stringify(defaultEvents));
-        if (!localStorage.getItem('ybs_messages')) localStorage.setItem('ybs_messages', JSON.stringify([]));
-
-        document.addEventListener('DOMContentLoaded', () => {
-            renderLinktree();
-            renderEvents('all');
-        });
-
-        function switchPage(pageId) {
+        window.switchPage = function(pageId) {
             ['home', 'events', 'contact'].forEach(p => {
                 const sec = document.getElementById(`page-${p}`);
                 const btn = document.getElementById(`nav-btn-${p}`);
@@ -394,11 +377,58 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function renderLinktree() {
-            const links = JSON.parse(localStorage.getItem('ybs_links'));
+        async function loadData() {
+            try {
+                // Linkler
+                const linksSnap = await getDocs(collection(db, "links"));
+                let links = [];
+                linksSnap.forEach(docSnap => links.push({ id: docSnap.id, ...docSnap.data() }));
+                if (links.length === 0) {
+                    links = [
+                        { id: '1', title: 'Instagram', url: 'https://instagram.com', icon: 'fa-brands fa-instagram' },
+                        { id: '2', title: 'WhatsApp İletişim Hattı', url: 'https://whatsapp.com', icon: 'fa-brands fa-whatsapp' },
+                        { id: '3', title: 'LinkedIn', url: 'https://linkedin.com', icon: 'fa-brands fa-linkedin' }
+                    ];
+                }
+                renderLinktree(links);
+                renderAdminLinks(links);
+
+                // Etkinlikler
+                const eventsSnap = await getDocs(collection(db, "events"));
+                let events = [];
+                eventsSnap.forEach(docSnap => events.push({ id: docSnap.id, ...docSnap.data() }));
+                if (events.length === 0) {
+                    events = [
+                        {
+                            id: '1',
+                            title: 'YBS Kariyer Zirvesi 2026',
+                            date: '2026-05-15T14:00',
+                            image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80',
+                            desc: 'Sektörün öncü isimleriyle bir araya geldiğimiz geleneksel kariyer zirvemiz.',
+                            link: 'https://instagram.com'
+                        }
+                    ];
+                }
+                window.allEvents = events;
+                renderEvents('all');
+                renderAdminEvents(events);
+
+                // Mesajlar
+                const messagesSnap = await getDocs(collection(db, "messages"));
+                let messages = [];
+                messagesSnap.forEach(docSnap => messages.push({ id: docSnap.id, ...docSnap.data() }));
+                renderAdminMessages(messages);
+
+            } catch (e) {
+                console.error("Firebase veri yükleme hatası: ", e);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadData);
+
+        function renderLinktree(links) {
             const container = document.getElementById('linktree-container');
             container.innerHTML = '';
-
             links.forEach(link => {
                 const a = document.createElement('a');
                 a.href = link.url;
@@ -418,7 +448,7 @@
         }
 
         let currentFilter = 'all';
-        function filterEvents(type) {
+        window.filterEvents = function(type) {
             currentFilter = type;
             ['all', 'upcoming', 'past'].forEach(t => {
                 const btn = document.getElementById(`btn-filter-${t}`);
@@ -432,7 +462,7 @@
         }
 
         function renderEvents(filter) {
-            const events = JSON.parse(localStorage.getItem('ybs_events'));
+            const events = window.allEvents || [];
             const grid = document.getElementById('events-grid');
             grid.innerHTML = '';
             const now = new Date();
@@ -488,29 +518,34 @@
             });
         }
 
-        function openLightbox(imgSrc) {
+        window.openLightbox = function(imgSrc) {
             document.getElementById('lightbox-img').src = imgSrc;
             document.getElementById('lightbox-modal').classList.remove('hidden');
         }
-        function closeLightbox() {
+        window.closeLightbox = function() {
             document.getElementById('lightbox-modal').classList.add('hidden');
         }
 
-        function handleContactSubmit(e) {
+        window.handleContactSubmit = async function(e) {
             e.preventDefault();
             const name = document.getElementById('contact-name').value;
             const email = document.getElementById('contact-email').value;
             const message = document.getElementById('contact-message').value;
 
-            const messages = JSON.parse(localStorage.getItem('ybs_messages'));
-            messages.unshift({ id: Date.now(), name, email, message, date: new Date().toLocaleString('tr-TR') });
-            localStorage.setItem('ybs_messages', JSON.stringify(messages));
-
-            alert('Mesajınız başarıyla gönderildi!');
-            document.getElementById('contact-form').reset();
+            try {
+                await addDoc(collection(db, "messages"), {
+                    name, email, message,
+                    date: new Date().toLocaleString('tr-TR')
+                });
+                alert('Mesajınız başarıyla gönderildi!');
+                document.getElementById('contact-form').reset();
+                loadData();
+            } catch (err) {
+                alert('Mesaj gönderilirken hata oluştu.');
+            }
         }
 
-        function encodeImageFileAsURL(element) {
+        window.encodeImageFileAsURL = function(element) {
             const file = element.files[0];
             if (file) {
                 const reader = new FileReader();
@@ -521,8 +556,7 @@
             }
         }
 
-        // İkon Seçici Mantığı
-        function selectIcon(iconClass, element) {
+        window.selectIcon = function(iconClass, element) {
             document.getElementById('link-icon').value = iconClass;
             document.querySelectorAll('.icon-option').forEach(el => {
                 el.classList.remove('border-indigo-600', 'bg-indigo-950/40');
@@ -532,30 +566,29 @@
             element.classList.add('border-indigo-600', 'bg-indigo-950/40');
         }
 
-        function openAdminModal() { document.getElementById('admin-modal').classList.remove('hidden'); }
-        function closeAdminModal() { 
+        window.openAdminModal = function() { document.getElementById('admin-modal').classList.remove('hidden'); }
+        window.closeAdminModal = function() { 
             document.getElementById('admin-modal').classList.add('hidden'); 
             document.getElementById('admin-password-input').value = ''; 
         }
 
-        function handleAdminLogin(e) {
+        window.handleAdminLogin = function(e) {
             e.preventDefault();
             if (document.getElementById('admin-password-input').value === '160422') {
                 closeAdminModal();
                 document.getElementById('admin-panel').classList.remove('hidden');
-                loadAdminData();
+                loadData();
             } else {
                 alert('Hatalı şifre!');
             }
         }
 
-        function closeAdminPanel() {
+        window.closeAdminPanel = function() {
             document.getElementById('admin-panel').classList.add('hidden');
-            renderLinktree();
-            renderEvents(currentFilter);
+            loadData();
         }
 
-        function switchAdminTab(tab) {
+        window.switchAdminTab = function(tab) {
             ['events', 'links', 'messages'].forEach(t => {
                 document.getElementById(`admin-tab-${t}`).classList.add('hidden');
                 document.getElementById(`tab-btn-${t}`).className = 'px-5 py-3 rounded-2xl text-xs font-bold text-slate-400 hover:text-white transition whitespace-nowrap';
@@ -564,14 +597,7 @@
             document.getElementById(`tab-btn-${tab}`).className = 'px-5 py-3 rounded-2xl text-xs font-bold bg-indigo-600 text-white transition shadow-md whitespace-nowrap';
         }
 
-        function loadAdminData() {
-            loadAdminEvents();
-            loadAdminLinks();
-            loadAdminMessages();
-        }
-
-        function loadAdminEvents() {
-            const events = JSON.parse(localStorage.getItem('ybs_events'));
+        function renderAdminEvents(events) {
             const list = document.getElementById('admin-events-list');
             list.innerHTML = '';
             events.forEach(ev => {
@@ -586,72 +612,50 @@
                         </div>
                     </div>
                     <div class="flex space-x-2 self-end sm:self-auto">
-                        <button onclick="editEvent(${ev.id})" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-xl text-xs font-bold transition text-slate-300">Düzenle</button>
-                        <button onclick="deleteEvent(${ev.id})" class="bg-red-500/15 text-red-400 hover:bg-red-500/25 px-4 py-2 rounded-xl text-xs font-bold transition">Sil</button>
+                        <button onclick="deleteEvent('${ev.id}')" class="bg-red-500/15 text-red-400 hover:bg-red-500/25 px-4 py-2 rounded-xl text-xs font-bold transition">Sil</button>
                     </div>
                 `;
                 list.appendChild(div);
             });
         }
 
-        function handleSaveEvent(e) {
+        window.handleSaveEvent = async function(e) {
             e.preventDefault();
-            const id = document.getElementById('edit-event-id').value;
             const title = document.getElementById('event-title').value;
             const date = document.getElementById('event-date').value;
-            const customImage = document.getElementById('event-image-base64').value;
+            let image = document.getElementById('event-image-base64').value;
             const link = document.getElementById('event-link').value;
             const desc = document.getElementById('event-desc').value;
 
-            let events = JSON.parse(localStorage.getItem('ybs_events'));
-            
-            let image = customImage;
-            if (!image && id) {
-                const existing = events.find(item => item.id == id);
-                if (existing) image = existing.image;
-            }
             if (!image) image = 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80';
 
-            if (id) {
-                events = events.map(ev => ev.id == id ? { id: Number(id), title, date, image, link, desc } : ev);
-            } else {
-                events.unshift({ id: Date.now(), title, date, image, link, desc });
+            try {
+                await addDoc(collection(db, "events"), { title, date, image, link, desc });
+                resetEventForm();
+                loadData();
+                alert('Etkinlik başarıyla eklendi!');
+            } catch (err) {
+                alert('Etkinlik eklenirken hata oluştu.');
             }
-            localStorage.setItem('ybs_events', JSON.stringify(events));
-            resetEventForm();
-            loadAdminEvents();
         }
 
-        function editEvent(id) {
-            const ev = JSON.parse(localStorage.getItem('ybs_events')).find(i => i.id == id);
-            if (!ev) return;
-            document.getElementById('edit-event-id').value = ev.id;
-            document.getElementById('event-title').value = ev.title;
-            document.getElementById('event-date').value = ev.date;
-            document.getElementById('event-link').value = ev.link || '';
-            document.getElementById('event-desc').value = ev.desc;
-            document.getElementById('event-image-base64').value = ev.image;
-            document.getElementById('event-form-title').innerHTML = `<i class="fa-solid fa-pen text-indigo-400"></i><span>Etkinliği Düzenle</span>`;
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function deleteEvent(id) {
+        window.deleteEvent = async function(id) {
             if (confirm('Bu etkinliği silmek istediğinize emin misiniz?')) {
-                let events = JSON.parse(localStorage.getItem('ybs_events')).filter(ev => ev.id != id);
-                localStorage.setItem('ybs_events', JSON.stringify(events));
-                loadAdminEvents();
+                try {
+                    await deleteDoc(doc(db, "events", id));
+                    loadData();
+                } catch (err) {
+                    alert('Silme sırasında hata oluştu.');
+                }
             }
         }
 
-        function resetEventForm() {
-            document.getElementById('edit-event-id').value = '';
+        window.resetEventForm = function() {
             document.getElementById('event-image-base64').value = '';
-            document.getElementById('event-form-title').innerHTML = `<i class="fa-solid fa-calendar-plus text-indigo-400"></i><span>Yeni Etkinlik Ekle</span>`;
             document.querySelector('#admin-tab-events form').reset();
         }
 
-        function loadAdminLinks() {
-            const links = JSON.parse(localStorage.getItem('ybs_links'));
+        function renderAdminLinks(links) {
             const list = document.getElementById('admin-links-list');
             list.innerHTML = '';
             links.forEach(link => {
@@ -667,36 +671,41 @@
                             <a href="${link.url}" target="_blank" class="text-xs text-indigo-400 hover:underline truncate block">${link.url}</a>
                         </div>
                     </div>
-                    <button onclick="deleteLink(${link.id})" class="bg-red-500/15 text-red-400 hover:bg-red-500/25 px-4 py-2 rounded-xl text-xs font-bold transition flex-shrink-0">Sil</button>
+                    <button onclick="deleteLink('${link.id}')" class="bg-red-500/15 text-red-400 hover:bg-red-500/25 px-4 py-2 rounded-xl text-xs font-bold transition flex-shrink-0">Sil</button>
                 `;
                 list.appendChild(div);
             });
         }
 
-        function handleSaveLink(e) {
+        window.handleSaveLink = async function(e) {
             e.preventDefault();
             const title = document.getElementById('link-title').value;
             const url = document.getElementById('link-url').value;
             const icon = document.getElementById('link-icon').value;
 
-            let links = JSON.parse(localStorage.getItem('ybs_links'));
-            links.push({ id: Date.now(), title, url, icon });
-            localStorage.setItem('ybs_links', JSON.stringify(links));
-            document.getElementById('link-title').value = '';
-            document.getElementById('link-url').value = '';
-            loadAdminLinks();
-        }
-
-        function deleteLink(id) {
-            if (confirm('Bu bağlantıyı silmek istediğinize emin misiniz?')) {
-                let links = JSON.parse(localStorage.getItem('ybs_links')).filter(l => l.id != id);
-                localStorage.setItem('ybs_links', JSON.stringify(links));
-                loadAdminLinks();
+            try {
+                await addDoc(collection(db, "links"), { title, url, icon });
+                document.getElementById('link-title').value = '';
+                document.getElementById('link-url').value = '';
+                loadData();
+                alert('Bağlantı başarıyla eklendi!');
+            } catch (err) {
+                alert('Bağlantı eklenirken hata oluştu.');
             }
         }
 
-        function loadAdminMessages() {
-            const messages = JSON.parse(localStorage.getItem('ybs_messages'));
+        window.deleteLink = async function(id) {
+            if (confirm('Bu bağlantıyı silmek istediğinize emin misiniz?')) {
+                try {
+                    await deleteDoc(doc(db, "links", id));
+                    loadData();
+                } catch (err) {
+                    alert('Silme sırasında hata oluştu.');
+                }
+            }
+        }
+
+        function renderAdminMessages(messages) {
             const list = document.getElementById('admin-messages-list');
             list.innerHTML = '';
             if (messages.length === 0) {
