@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İstanbul Beykent Üniversitesi YBS Kulübü</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            600: '#6366f1',
+                            700: '#4f46e5',
+                            800: '#3730a3',
+                            900: '#312e81'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 dark:bg-[#07090e] text-slate-800 dark:text-slate-100 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white transition-colors duration-500 relative overflow-x-hidden">
+
+    <!-- Dekoratif Arka Plan Işık Efektleri -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] bg-indigo-500/10 dark:bg-indigo-600/15 blur-[140px] rounded-full pointer-events-none -z-10"></div>
+
+    <!-- Navbar -->
+    <header class="sticky top-0 z-40 bg-white/80 dark:bg-[#07090e]/80 backdrop-blur-xl border-b border-slate-200/80 dark:border-slate-800/60 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+            <a href="#" onclick="switchPage('home')" class="flex items-center space-x-3.5 group cursor-pointer">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-indigo-600 via-violet-600 to-pink-600 p-0.5 shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform duration-300 flex-shrink-0">
+                    <div class="w-full h-full rounded-[14px] bg-white dark:bg-slate-900 overflow-hidden flex items-center justify-center">
+                        <img src="logo.jpeg" alt="Logo" class="w-full h-full object-cover object-center">
+                    </div>
+                </div>
+                <div>
+                    <span class="font-black text-sm sm:text-lg tracking-tight block leading-tight bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent">İstanbul Beykent YBS</span>
+                    <span class="text-[10px] sm:text-xs text-indigo-600 dark:text-indigo-400 font-bold block tracking-wide">Yönetim Bilişim Sistemleri Kulübü</span>
+                </div>
+            </a>
+            
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold">
+                <button onclick="switchPage('home')" id="nav-btn-home" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition text-indigo-600 dark:text-indigo-400">Ana Sayfa</button>
+                <button onclick="switchPage('events')" id="nav-btn-events" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition text-slate-600 dark:text-slate-300">Etkinlikler</button>
+                <button onclick="switchPage('contact')" id="nav-btn-contact" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition text-slate-600 dark:text-slate-300">Bize Ulaşın</button>
+            </nav>
+
+            <div class="flex items-center space-x-2 sm:space-x-3">
+                <button onclick="toggleTheme()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 border border-slate-200 dark:border-slate-800 transition shadow-sm">
+                    <i id="theme-icon" class="fa-solid fa-moon text-sm"></i>
+                </button>
+
+                <div class="flex md:hidden space-x-1.5">
+                    <button onclick="switchPage('home')" class="p-2.5 text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-900 rounded-xl text-xs"><i class="fa-solid fa-house"></i></button>
+                    <button onclick="switchPage('events')" class="p-2.5 text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-900 rounded-xl text-xs"><i class="fa-solid fa-calendar"></i></button>
+                    <button onclick="switchPage('contact')" class="p-2.5 text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-900 rounded-xl text-xs"><i class="fa-solid fa-envelope"></i></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow py-12 sm:py-16 px-4 sm:px-6">
+        
+        <!-- SAYFA 1: Ana Sayfa / Linktree -->
+        <section id="page-home" class="max-w-xl mx-auto text-center space-y-8 animate-fadeIn">
+            <div class="mb-8 space-y-4">
+                <div class="relative w-36 h-36 mx-auto rounded-full bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 p-1 shadow-2xl shadow-indigo-500/30 group">
+                    <div class="w-full h-full bg-white dark:bg-slate-900 rounded-full flex items-center justify-center overflow-hidden border-4 border-slate-50 dark:border-[#07090e]">
+                        <img src="logo.jpeg" alt="İstanbul Beykent YBS Logosu" class="w-full h-full object-cover object-center group-hover:scale-110 transition duration-500">
+                    </div>
+                </div>
+                <div>
+                    <h1 class="text-2xl sm:text-4xl font-black tracking-tight mb-2 bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 dark:from-white dark:via-slate-200 dark:to-slate-400 bg-clip-text text-transparent px-2">İstanbul Beykent Üniversitesi YBS Kulübü</h1>
+                    <p class="text-slate-600 dark:text-slate-400 text-xs sm:text-sm max-w-md mx-auto px-4 font-medium leading-relaxed">Geleceğin yöneticilerini, veri analistlerini ve teknoloji liderlerini buluşturan resmi öğrenci platformu.</p>
+                </div>
+            </div>
+
+            <!-- Linktree Links Container -->
+            <div id="linktree-container" class="space-y-4 max-w-md mx-auto">
+                <!-- JS ile dolacak -->
+            </div>
+        </section>
+
+        <!-- SAYFA 2: Etkinlikler -->
+        <section id="page-events" class="max-w-7xl mx-auto hidden space-y-10 animate-fadeIn">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                    <span class="text-indigo-600 dark:text-indigo-400 font-bold text-xs uppercase tracking-widest block mb-1.5">Aktivitelerimiz</span>
+                    <h2 class="text-3xl sm:text-4xl font-black tracking-tight">Etkinlikler</h2>
+                    <p class="text-slate-600 dark:text-slate-400 text-xs sm:text-sm mt-1.5 font-medium">Kulübümüzün düzenlediği geçmiş ve gelecek tüm etkinlikleri keşfedin.</p>
+                </div>
+                <!-- Filtreler -->
+                <div class="flex space-x-1.5 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md p-1.5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm self-start md:self-auto">
+                    <button onclick="filterEvents('all')" id="btn-filter-all" class="px-5 py-2.5 text-xs font-bold rounded-xl bg-indigo-600 text-white transition shadow-sm">Tümü</button>
+                    <button onclick="filterEvents('upcoming')" id="btn-filter-upcoming" class="px-5 py-2.5 text-xs font-bold rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Yaklaşanlar</button>
+                    <button onclick="filterEvents('past')" id="btn-filter-past" class="px-5 py-2.5 text-xs font-bold rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Geçmiş</button>
+                </div>
+            </div>
+
+            <!-- Etkinlik Kartları Grid -->
+            <div id="events-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- JS ile dolacak -->
+            </div>
+        </section>
+
+        <!-- SAYFA 3: İletişim -->
+        <section id="page-contact" class="max-w-3xl mx-auto hidden space-y-8 animate-fadeIn">
+            <div class="text-center px-2 space-y-2">
+                <span class="text-indigo-600 dark:text-indigo-400 font-bold text-xs uppercase tracking-widest block">İletişim Kanalı</span>
+                <h2 class="text-3xl sm:text-4xl font-black tracking-tight">Bize Ulaşın</h2>
+                <p class="text-slate-600 dark:text-slate-400 text-xs sm:text-sm font-medium">Soru, öneri ve kulüp işbirliği talepleriniz için bize mesaj bırakın.</p>
+            </div>
+
+            <form id="contact-form" onsubmit="handleContactSubmit(event)" class="bg-white/80 dark:bg-slate-900/60 backdrop-blur-2xl p-6 sm:p-10 rounded-[2.5rem] border border-slate-200 dark:border-slate-800/80 space-y-5 shadow-2xl shadow-indigo-500/5">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-2">Adınız Soyadınız</label>
+                        <input type="text" id="contact-name" required class="w-full bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm focus:outline-none focus:border-indigo-500 transition shadow-inner">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-2">E-Posta Adresiniz</label>
+                        <input type="email" id="contact-email" required class="w-full bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm focus:outline-none focus:border-indigo-500 transition shadow-inner">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-2">Mesajınız</label>
+                    <textarea id="contact-message" rows="4" required class="w-full bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm focus:outline-none focus:border-indigo-500 transition resize-none shadow-inner"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 font-bold py-4 rounded-2xl transition-all duration-300 text-sm shadow-xl shadow-indigo-600/25 text-white active:scale-[0.99]">Mesajı Gönder</button>
+            </form>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white/80 dark:bg-[#07090e]/80 backdrop-blur-xl py-10 border-t border-slate-200 dark:border-slate-900 text-center text-xs text-slate-500 space-y-4 transition-colors duration-300 px-4">
+        <p class="font-medium">&copy; 2026 İstanbul Beykent Üniversitesi YBS Kulübü. Tüm hakları saklıdır.</p>
+        <div>
+            <button onclick="openAdminModal()" class="inline-flex items-center space-x-2 bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 border border-slate-200 dark:border-slate-800 px-4 py-2.5 rounded-xl transition-all duration-300 text-xs font-bold shadow-sm">
+                <i class="fa-solid fa-lock text-[10px]"></i>
+                <span>Yönetim Paneli Girişi</span>
+            </button>
+        </div>
+    </footer>
+
+    <!-- Fotoğraf Büyütme (Lightbox) Modalı -->
+    <div id="lightbox-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl hidden flex items-center justify-center p-4" onclick="closeLightbox()">
+        <button class="absolute top-6 right-6 text-white text-3xl hover:text-indigo-400 transition"><i class="fa-solid fa-xmark"></i></button>
+        <img id="lightbox-img" src="" class="max-w-full max-h-[90vh] object-contain rounded-3xl shadow-2xl border border-white/10" onclick="event.stopPropagation()">
+    </div>
+
+    <!-- Admin Giriş Modal -->
+    <div id="admin-modal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 w-full max-w-md p-8 rounded-[2.5rem] shadow-2xl relative">
+            <button onclick="closeAdminModal()" class="absolute top-6 right-6 text-slate-400 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 rounded-2xl bg-indigo-600/15 text-indigo-600 dark:text-indigo-400 mx-auto flex items-center justify-center mb-4 border border-indigo-500/30 shadow-inner"><i class="fa-solid fa-lock text-xl"></i></div>
+                <h3 class="font-extrabold text-xl text-slate-900 dark:text-white">Yönetici Girişi</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Güvenli yönetim paneline erişmek için şifrenizi giriniz.</p>
+            </div>
+            <form onsubmit="handleAdminLogin(event)" class="space-y-4">
+                <input type="password" id="admin-password-input" placeholder="••••••" required class="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm text-center tracking-widest focus:outline-none focus:border-indigo-500 shadow-inner">
+                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 py-4 rounded-2xl text-sm font-bold transition shadow-lg shadow-indigo-600/25 text-white">Giriş Yap</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="admin-panel" class="fixed inset-0 z-50 bg-[#07090e] hidden overflow-y-auto text-slate-100">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-800 mb-8 sm:mb-10 gap-4">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-600 flex items-center justify-center font-bold text-white shadow-lg shadow-indigo-600/30 flex-shrink-0">Y</div>
+                    <div>
+                        <h2 class="font-black text-lg sm:text-xl">Yönetim Paneli</h2>
+                        <span class="text-xs text-indigo-400 font-semibold block">İstanbul Beykent YBS Kontrol Merkezi</span>
+                    </div>
+                </div>
+                <button onclick="closeAdminPanel()" class="bg-slate-900 hover:bg-slate-800 border border-slate-800 px-5 py-3 rounded-2xl text-xs font-bold transition flex items-center justify-center space-x-2 text-slate-300 hover:text-white self-start sm:self-auto shadow-sm">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Siteye Dön</span>
+                </button>
+            </div>
+
+            <!-- Sekmeler -->
+            <div class="flex space-x-2 mb-8 sm:mb-10 border-b border-slate-800/80 pb-4 overflow-x-auto">
+                <button onclick="switchAdminTab('events')" id="tab-btn-events" class="px-5 py-3 rounded-2xl text-xs font-bold bg-indigo-600 text-white transition shadow-md whitespace-nowrap">Etkinlik Yönetimi</button>
+                <button onclick="switchAdminTab('links')" id="tab-btn-links" class="px-5 py-3 rounded-2xl text-xs font-bold text-slate-400 hover:text-white transition whitespace-nowrap">Bağlantı (Linktree) Yönetimi</button>
+                <button onclick="switchAdminTab('messages')" id="tab-btn-messages" class="px-5 py-3 rounded-2xl text-xs font-bold text-slate-400 hover:text-white transition whitespace-nowrap">Gelen Mesajlar</button>
+            </div>
+
+            <!-- TAB 1: Etkinlikler -->
+            <div id="admin-tab-events" class="space-y-8 sm:space-y-10">
+                <div class="bg-slate-900/80 backdrop-blur-xl p-6 sm:p-10 rounded-[2.5rem] border border-slate-800 shadow-2xl">
+                    <h3 id="event-form-title" class="font-extrabold text-sm mb-6 flex items-center space-x-2.5">
+                        <i class="fa-solid fa-calendar-plus text-indigo-400 text-base"></i>
+                        <span>Yeni Etkinlik Ekle</span>
+                    </h3>
+                    <form onsubmit="handleSaveEvent(event)" class="space-y-5">
+                        <input type="hidden" id="edit-event-id">
+                        <input type="hidden" id="event-image-base64">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-400 mb-2">Etkinlik Adı</label>
+                                <input type="text" id="event-title" required class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-5 py-3.5 text-sm focus:outline-none focus:border-indigo-500 shadow-inner">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-400 mb-2">Tarih ve Saat</label>
+                                <input type="datetime-local" id="event-date" required class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-5 py-3.5 text-sm focus:outline-none focus:border-indigo-500 shadow-inner">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-400 mb-2">Fotoğraf Seç (Dikey veya Yatay)</label>
+                                <input type="file" id="event-file-input" accept="image/*" onchange="encodeImageFileAsURL(this)" class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-4 py-3 text-xs text-slate-400 file:mr-4 file:py-1.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-indigo-600 file:text-white hover:file:bg-indigo-500 shadow-inner">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-400 mb-2">Kayıt / Aksiyon Linki (Opsiyonel)</label>
+                                <input type="url" id="event-link" placeholder="https://..." class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-5 py-3.5 text-sm focus:outline-none focus:border-indigo-500 shadow-inner">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 mb-2">Açıklama</label>
+                            <textarea id="event-desc" rows="3" required class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-5 py-3.5 text-sm focus:outline-none focus:border-indigo-500 shadow-inner resize-none"></textarea>
+                        </div>
+                        <div class="flex space-x-3 pt-2">
+                            <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 px-8 py-3.5 rounded-2xl text-xs font-bold transition text-white shadow-lg shadow-indigo-600/30">Kaydet</button>
+                            <button type="button" onclick="resetEventForm()" class="bg-slate-800 hover:bg-slate-700 px-6 py-3.5 rounded-2xl text-xs font-bold transition">İptal</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="space-y-4">
+                    <h3 class="font-extrabold text-sm px-2">Mevcut Etkinlikler</h3>
+                    <div id="admin-events-list" class="space-y-3"></div>
+                </div>
+            </div>
+
+            <!-- TAB 2: Bağlantılar -->
+            <div id="admin-tab-links" class="hidden space-y-8 sm:space-y-10">
+                <div class="bg-slate-900/80 backdrop-blur-xl p-6 sm:p-10 rounded-[2.5rem] border border-slate-800 shadow-2xl">
+                    <h3 class="font-extrabold text-sm mb-6">Yeni Bağlantı Ekle</h3>
+                    <form onsubmit="handleSaveLink(event)" class="space-y-5">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-400 mb-2">Başlık (Örn: Instagram, WhatsApp)</label>
+                                <input type="text" id="link-title" required class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-5 py-3.5 text-sm focus:outline-none focus:border-indigo-500 shadow-inner">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-400 mb-2">URL (Bağlantı Adresi)</label>
+                                <input type="url" id="link-url" required placeholder="https://..." class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-5 py-3.5 text-sm focus:outline-none focus:border-indigo-500 shadow-inner">
+                            </div>
+                        </div>
+
+                        <!-- İKON SEÇİCİ (Görsel Butonlar) -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 mb-2">İkon Seçin</label>
+                            <input type="hidden" id="link-icon" value="fa-brands fa-instagram" required>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                                <div onclick="selectIcon('fa-brands fa-instagram', this)" class="icon-option p-3 rounded-2xl bg-slate-950 border-2 border-indigo-600 flex items-center space-x-3 cursor-pointer hover:border-indigo-500 transition">
+                                    <i class="fa-brands fa-instagram text-xl text-pink-500"></i>
+                                    <span class="text-xs font-bold">Instagram</span>
+                                </div>
+                                <div onclick="selectIcon('fa-brands fa-whatsapp', this)" class="icon-option p-3 rounded-2xl bg-slate-950 border-2 border-slate-800 flex items-center space-x-3 cursor-pointer hover:border-indigo-500 transition">
+                                    <i class="fa-brands fa-whatsapp text-xl text-emerald-500"></i>
+                                    <span class="text-xs font-bold">WhatsApp</span>
+                                </div>
+                                <div onclick="selectIcon('fa-brands fa-linkedin', this)" class="icon-option p-3 rounded-2xl bg-slate-950 border-2 border-slate-800 flex items-center space-x-3 cursor-pointer hover:border-indigo-500 transition">
+                                    <i class="fa-brands fa-linkedin text-xl text-blue-500"></i>
+                                    <span class="text-xs font-bold">LinkedIn</span>
+                                </div>
+                                <div onclick="selectIcon('fa-brands fa-x-twitter', this)" class="icon-option p-3 rounded-2xl bg-slate-950 border-2 border-slate-800 flex items-center space-x-3 cursor-pointer hover:border-indigo-500 transition">
+                                    <i class="fa-brands fa-x-twitter text-xl text-white"></i>
+                                    <span class="text-xs font-bold">X (Twitter)</span>
+                                </div>
+                                <div onclick="selectIcon('fa-brands fa-github', this)" class="icon-option p-3 rounded-2xl bg-slate-950 border-2 border-slate-800 flex items-center space-x-3 cursor-pointer hover:border-indigo-500 transition">
+                                    <i class="fa-brands fa-github text-xl text-purple-400"></i>
+                                    <span class="text-xs font-bold">GitHub</span>
+                                </div>
+                                <div onclick="selectIcon('fa-brands fa-youtube', this)" class="icon-option p-3 rounded-2xl bg-slate-950 border-2 border-slate-800 flex items-center space-x-3 cursor-pointer hover:border-indigo-500 transition">
+                                    <i class="fa-brands fa-youtube text-xl text-red-500"></i>
+                                    <span class="text-xs font-bold">YouTube</span>
+                                </div>
+                                <div onclick="selectIcon('fa-solid fa-envelope', this)" class="icon-option p-3 rounded-2xl bg-slate-950 border-2 border-slate-800 flex items-center space-x-3 cursor-pointer hover:border-indigo-500 transition">
+                                    <i class="fa-solid fa-envelope text-xl text-amber-500"></i>
+                                    <span class="text-xs font-bold">E-Posta</span>
+                                </div>
+                                <div onclick="selectIcon('fa-solid fa-globe', this)" class="icon-option p-3 rounded-2xl bg-slate-950 border-2 border-slate-800 flex items-center space-x-3 cursor-pointer hover:border-indigo-500 transition">
+                                    <i class="fa-solid fa-globe text-xl text-indigo-400"></i>
+                                    <span class="text-xs font-bold">Web Sitesi</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 px-8 py-3.5 rounded-2xl text-xs font-bold transition text-white shadow-lg shadow-indigo-600/30">Bağlantıyı Ekle</button>
+                    </form>
+                </div>
+
+                <div class="space-y-4">
+                    <h3 class="font-extrabold text-sm px-2">Aktif Bağlantılar</h3>
+                    <div id="admin-links-list" class="space-y-3"></div>
+                </div>
+            </div>
+
+            <!-- TAB 3: Gelen Mesajlar -->
+            <div id="admin-tab-messages" class="hidden space-y-4">
+                <h3 class="font-extrabold text-sm px-2">Bize Ulaşın Formundan Gelenler</h3>
+                <div id="admin-messages-list" class="space-y-3"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                icon.className = 'fa-solid fa-sun';
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                icon.className = 'fa-solid fa-moon';
+            }
+        }
+
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+            document.getElementById('theme-icon').className = 'fa-solid fa-sun';
+        } else {
+            document.documentElement.classList.add('dark');
+            document.getElementById('theme-icon').className = 'fa-solid fa-moon';
+        }
+
+        const defaultLinks = [
+            { id: 1, title: 'Instagram', url: 'https://instagram.com', icon: 'fa-brands fa-instagram' },
+            { id: 2, title: 'WhatsApp İletişim Hattı', url: 'https://whatsapp.com', icon: 'fa-brands fa-whatsapp' },
+            { id: 3, title: 'LinkedIn', url: 'https://linkedin.com', icon: 'fa-brands fa-linkedin' }
+        ];
+
+        const defaultEvents = [
+            {
+                id: 1,
+                title: 'YBS Kariyer Zirvesi 2026',
+                date: '2026-05-15T14:00',
+                image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80',
+                desc: 'Sektörün öncü isimleriyle bir araya geldiğimiz geleneksel kariyer zirvemiz.',
+                link: 'https://instagram.com'
+            },
+            {
+                id: 2,
+                title: 'Python ile Veri Analizi Atölyesi',
+                date: '2026-03-10T13:00',
+                image: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=80',
+                desc: 'Temel düzey Python programlama ve veri analizi kütüphaneleri eğitimi.',
+                link: 'https://instagram.com'
+            }
+        ];
+
+        if (!localStorage.getItem('ybs_links')) localStorage.setItem('ybs_links', JSON.stringify(defaultLinks));
+        if (!localStorage.getItem('ybs_events')) localStorage.setItem('ybs_events', JSON.stringify(defaultEvents));
+        if (!localStorage.getItem('ybs_messages')) localStorage.setItem('ybs_messages', JSON.stringify([]));
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderLinktree();
+            renderEvents('all');
+        });
+
+        function switchPage(pageId) {
+            ['home', 'events', 'contact'].forEach(p => {
+                const sec = document.getElementById(`page-${p}`);
+                const btn = document.getElementById(`nav-btn-${p}`);
+                if (p === pageId) {
+                    sec.classList.remove('hidden');
+                    if (btn) btn.className = 'hover:text-indigo-600 dark:hover:text-indigo-400 transition text-indigo-600 dark:text-indigo-400 font-bold';
+                } else {
+                    sec.classList.add('hidden');
+                    if (btn) btn.className = 'hover:text-indigo-600 dark:hover:text-indigo-400 transition text-slate-600 dark:text-slate-300 font-semibold';
+                }
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderLinktree() {
+            const links = JSON.parse(localStorage.getItem('ybs_links'));
+            const container = document.getElementById('linktree-container');
+            container.innerHTML = '';
+
+            links.forEach(link => {
+                const a = document.createElement('a');
+                a.href = link.url;
+                a.target = '_blank';
+                a.className = 'flex items-center justify-between p-4.5 sm:p-5 rounded-2xl bg-white/80 dark:bg-slate-900/60 hover:bg-slate-100 dark:hover:bg-slate-900 border border-slate-200 dark:border-slate-800/80 hover:border-indigo-500/50 transition-all duration-300 group shadow-lg shadow-black/5 hover:-translate-y-0.5';
+                a.innerHTML = `
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-2xl bg-indigo-600/10 dark:bg-indigo-600/15 text-indigo-600 dark:text-indigo-400 flex items-center justify-center group-hover:scale-110 transition duration-300 border border-indigo-500/20 flex-shrink-0 shadow-inner">
+                            <i class="${link.icon} text-lg"></i>
+                        </div>
+                        <span class="font-bold text-sm sm:text-base tracking-wide text-left">${link.title}</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-xs text-slate-400 dark:text-slate-600 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 group-hover:translate-x-1 transition duration-300"></i>
+                `;
+                container.appendChild(a);
+            });
+        }
+
+        let currentFilter = 'all';
+        function filterEvents(type) {
+            currentFilter = type;
+            ['all', 'upcoming', 'past'].forEach(t => {
+                const btn = document.getElementById(`btn-filter-${t}`);
+                if (t === type) {
+                    btn.className = 'px-5 py-2.5 text-xs font-bold rounded-xl bg-indigo-600 text-white transition shadow-md shadow-indigo-600/20';
+                } else {
+                    btn.className = 'px-5 py-2.5 text-xs font-bold rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition';
+                }
+            });
+            renderEvents(type);
+        }
+
+        function renderEvents(filter) {
+            const events = JSON.parse(localStorage.getItem('ybs_events'));
+            const grid = document.getElementById('events-grid');
+            grid.innerHTML = '';
+            const now = new Date();
+
+            const filtered = events.filter(ev => {
+                const evDate = new Date(ev.date);
+                if (filter === 'upcoming') return evDate >= now;
+                if (filter === 'past') return evDate < now;
+                return true;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-20 text-slate-400 dark:text-slate-500 text-sm font-medium">Bu kategoride henüz etkinlik bulunmuyor.</div>`;
+                return;
+            }
+
+            filtered.forEach(ev => {
+                const evDate = new Date(ev.date);
+                const isUpcoming = evDate >= now;
+                const formattedDate = evDate.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+                const card = document.createElement('div');
+                card.className = 'bg-white/80 dark:bg-slate-900/60 backdrop-blur-xl border border-slate-200 dark:border-slate-800/80 rounded-[2rem] overflow-hidden flex flex-col justify-between group hover:border-indigo-500/50 transition-all duration-500 shadow-xl hover:-translate-y-1';
+                card.innerHTML = `
+                    <div>
+                        <div onclick="openLightbox('${ev.image}')" class="relative h-64 sm:h-72 overflow-hidden bg-slate-100 dark:bg-slate-950 cursor-pointer flex items-center justify-center">
+                            <img src="${ev.image}" alt="${ev.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                            <span class="absolute top-4 left-4 px-3.5 py-1.5 rounded-full text-xs font-extrabold ${isUpcoming ? 'bg-emerald-500/90 text-white shadow-lg shadow-emerald-500/25' : 'bg-slate-800/90 text-slate-300'} backdrop-blur-md">
+                                ${isUpcoming ? 'Yaklaşan Etkinlik' : 'Geçmiş Etkinlik'}
+                            </span>
+                            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-bold space-x-2 backdrop-blur-[2px]">
+                                <i class="fa-solid fa-expand text-base"></i><span>Fotoğrafı Büyüt</span>
+                            </div>
+                        </div>
+                        <div class="p-6 sm:p-7">
+                            <div class="flex items-center space-x-2 text-xs text-indigo-600 dark:text-indigo-400 mb-3 font-bold tracking-wide">
+                                <i class="fa-regular fa-calendar"></i>
+                                <span>${formattedDate}</span>
+                            </div>
+                            <h3 class="font-extrabold text-lg sm:text-xl mb-3 text-slate-900 dark:text-white tracking-tight">${ev.title}</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-xs sm:text-sm leading-relaxed line-clamp-3 font-medium">${ev.desc}</p>
+                        </div>
+                    </div>
+                    ${ev.link ? `
+                        <div class="p-6 sm:p-7 pt-0">
+                            <a href="${ev.link}" target="_blank" class="w-full block text-center bg-indigo-600/10 hover:bg-indigo-600 text-indigo-600 dark:text-indigo-400 hover:text-white py-3.5 rounded-2xl text-xs font-bold transition duration-300 border border-indigo-500/30 shadow-sm">
+                                Kayıt Ol / İncele
+                            </a>
+                        </div>
+                    ` : ''}
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function openLightbox(imgSrc) {
+            document.getElementById('lightbox-img').src = imgSrc;
+            document.getElementById('lightbox-modal').classList.remove('hidden');
+        }
+        function closeLightbox() {
+            document.getElementById('lightbox-modal').classList.add('hidden');
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('contact-name').value;
+            const email = document.getElementById('contact-email').value;
+            const message = document.getElementById('contact-message').value;
+
+            const messages = JSON.parse(localStorage.getItem('ybs_messages'));
+            messages.unshift({ id: Date.now(), name, email, message, date: new Date().toLocaleString('tr-TR') });
+            localStorage.setItem('ybs_messages', JSON.stringify(messages));
+
+            alert('Mesajınız başarıyla gönderildi!');
+            document.getElementById('contact-form').reset();
+        }
+
+        function encodeImageFileAsURL(element) {
+            const file = element.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onloadend = function() {
+                    document.getElementById('event-image-base64').value = reader.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // İkon Seçici Mantığı
+        function selectIcon(iconClass, element) {
+            document.getElementById('link-icon').value = iconClass;
+            document.querySelectorAll('.icon-option').forEach(el => {
+                el.classList.remove('border-indigo-600', 'bg-indigo-950/40');
+                el.classList.add('border-slate-800');
+            });
+            element.classList.remove('border-slate-800');
+            element.classList.add('border-indigo-600', 'bg-indigo-950/40');
+        }
+
+        function openAdminModal() { document.getElementById('admin-modal').classList.remove('hidden'); }
+        function closeAdminModal() { 
+            document.getElementById('admin-modal').classList.add('hidden'); 
+            document.getElementById('admin-password-input').value = ''; 
+        }
+
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            if (document.getElementById('admin-password-input').value === '160422') {
+                closeAdminModal();
+                document.getElementById('admin-panel').classList.remove('hidden');
+                loadAdminData();
+            } else {
+                alert('Hatalı şifre!');
+            }
+        }
+
+        function closeAdminPanel() {
+            document.getElementById('admin-panel').classList.add('hidden');
+            renderLinktree();
+            renderEvents(currentFilter);
+        }
+
+        function switchAdminTab(tab) {
+            ['events', 'links', 'messages'].forEach(t => {
+                document.getElementById(`admin-tab-${t}`).classList.add('hidden');
+                document.getElementById(`tab-btn-${t}`).className = 'px-5 py-3 rounded-2xl text-xs font-bold text-slate-400 hover:text-white transition whitespace-nowrap';
+            });
+            document.getElementById(`admin-tab-${tab}`).classList.remove('hidden');
+            document.getElementById(`tab-btn-${tab}`).className = 'px-5 py-3 rounded-2xl text-xs font-bold bg-indigo-600 text-white transition shadow-md whitespace-nowrap';
+        }
+
+        function loadAdminData() {
+            loadAdminEvents();
+            loadAdminLinks();
+            loadAdminMessages();
+        }
+
+        function loadAdminEvents() {
+            const events = JSON.parse(localStorage.getItem('ybs_events'));
+            const list = document.getElementById('admin-events-list');
+            list.innerHTML = '';
+            events.forEach(ev => {
+                const div = document.createElement('div');
+                div.className = 'flex flex-col sm:flex-row sm:items-center justify-between p-4.5 rounded-2xl bg-slate-900 border border-slate-800 gap-3 shadow-sm';
+                div.innerHTML = `
+                    <div class="flex items-center space-x-4">
+                        <img src="${ev.image}" class="w-12 h-12 rounded-xl object-cover flex-shrink-0">
+                        <div>
+                            <h4 class="font-bold text-sm text-white">${ev.title}</h4>
+                            <span class="text-xs text-slate-400 block">${ev.date}</span>
+                        </div>
+                    </div>
+                    <div class="flex space-x-2 self-end sm:self-auto">
+                        <button onclick="editEvent(${ev.id})" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-xl text-xs font-bold transition text-slate-300">Düzenle</button>
+                        <button onclick="deleteEvent(${ev.id})" class="bg-red-500/15 text-red-400 hover:bg-red-500/25 px-4 py-2 rounded-xl text-xs font-bold transition">Sil</button>
+                    </div>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        function handleSaveEvent(e) {
+            e.preventDefault();
+            const id = document.getElementById('edit-event-id').value;
+            const title = document.getElementById('event-title').value;
+            const date = document.getElementById('event-date').value;
+            const customImage = document.getElementById('event-image-base64').value;
+            const link = document.getElementById('event-link').value;
+            const desc = document.getElementById('event-desc').value;
+
+            let events = JSON.parse(localStorage.getItem('ybs_events'));
+            
+            let image = customImage;
+            if (!image && id) {
+                const existing = events.find(item => item.id == id);
+                if (existing) image = existing.image;
+            }
+            if (!image) image = 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80';
+
+            if (id) {
+                events = events.map(ev => ev.id == id ? { id: Number(id), title, date, image, link, desc } : ev);
+            } else {
+                events.unshift({ id: Date.now(), title, date, image, link, desc });
+            }
+            localStorage.setItem('ybs_events', JSON.stringify(events));
+            resetEventForm();
+            loadAdminEvents();
+        }
+
+        function editEvent(id) {
+            const ev = JSON.parse(localStorage.getItem('ybs_events')).find(i => i.id == id);
+            if (!ev) return;
+            document.getElementById('edit-event-id').value = ev.id;
+            document.getElementById('event-title').value = ev.title;
+            document.getElementById('event-date').value = ev.date;
+            document.getElementById('event-link').value = ev.link || '';
+            document.getElementById('event-desc').value = ev.desc;
+            document.getElementById('event-image-base64').value = ev.image;
+            document.getElementById('event-form-title').innerHTML = `<i class="fa-solid fa-pen text-indigo-400"></i><span>Etkinliği Düzenle</span>`;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function deleteEvent(id) {
+            if (confirm('Bu etkinliği silmek istediğinize emin misiniz?')) {
+                let events = JSON.parse(localStorage.getItem('ybs_events')).filter(ev => ev.id != id);
+                localStorage.setItem('ybs_events', JSON.stringify(events));
+                loadAdminEvents();
+            }
+        }
+
+        function resetEventForm() {
+            document.getElementById('edit-event-id').value = '';
+            document.getElementById('event-image-base64').value = '';
+            document.getElementById('event-form-title').innerHTML = `<i class="fa-solid fa-calendar-plus text-indigo-400"></i><span>Yeni Etkinlik Ekle</span>`;
+            document.querySelector('#admin-tab-events form').reset();
+        }
+
+        function loadAdminLinks() {
+            const links = JSON.parse(localStorage.getItem('ybs_links'));
+            const list = document.getElementById('admin-links-list');
+            list.innerHTML = '';
+            links.forEach(link => {
+                const div = document.createElement('div');
+                div.className = 'flex items-center justify-between p-4.5 rounded-2xl bg-slate-900 border border-slate-800 gap-2 shadow-sm';
+                div.innerHTML = `
+                    <div class="flex items-center space-x-3.5 overflow-hidden">
+                        <div class="w-10 h-10 rounded-xl bg-indigo-600/20 text-indigo-400 flex items-center justify-center flex-shrink-0">
+                            <i class="${link.icon}"></i>
+                        </div>
+                        <div class="overflow-hidden">
+                            <h4 class="font-bold text-sm text-white truncate">${link.title}</h4>
+                            <a href="${link.url}" target="_blank" class="text-xs text-indigo-400 hover:underline truncate block">${link.url}</a>
+                        </div>
+                    </div>
+                    <button onclick="deleteLink(${link.id})" class="bg-red-500/15 text-red-400 hover:bg-red-500/25 px-4 py-2 rounded-xl text-xs font-bold transition flex-shrink-0">Sil</button>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        function handleSaveLink(e) {
+            e.preventDefault();
+            const title = document.getElementById('link-title').value;
+            const url = document.getElementById('link-url').value;
+            const icon = document.getElementById('link-icon').value;
+
+            let links = JSON.parse(localStorage.getItem('ybs_links'));
+            links.push({ id: Date.now(), title, url, icon });
+            localStorage.setItem('ybs_links', JSON.stringify(links));
+            document.getElementById('link-title').value = '';
+            document.getElementById('link-url').value = '';
+            loadAdminLinks();
+        }
+
+        function deleteLink(id) {
+            if (confirm('Bu bağlantıyı silmek istediğinize emin misiniz?')) {
+                let links = JSON.parse(localStorage.getItem('ybs_links')).filter(l => l.id != id);
+                localStorage.setItem('ybs_links', JSON.stringify(links));
+                loadAdminLinks();
+            }
+        }
+
+        function loadAdminMessages() {
+            const messages = JSON.parse(localStorage.getItem('ybs_messages'));
+            const list = document.getElementById('admin-messages-list');
+            list.innerHTML = '';
+            if (messages.length === 0) {
+                list.innerHTML = `<div class="text-center py-12 text-slate-500 text-sm font-medium">Henüz gelen mesaj bulunmuyor.</div>`;
+                return;
+            }
+            messages.forEach(m => {
+                const div = document.createElement('div');
+                div.className = 'p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-2.5 shadow-sm';
+                div.innerHTML = `
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                        <h4 class="font-bold text-sm text-white">${m.name} <span class="text-xs text-slate-400 font-normal">(${m.email})</span></h4>
+                        <span class="text-xs text-slate-500 font-medium">${m.date}</span>
+                    </div>
+                    <p class="text-xs text-slate-300 bg-slate-950 p-4 rounded-xl border border-slate-800/60 leading-relaxed font-medium">${m.message}</p>
+                `;
+                list.appendChild(div);
+            });
+        }
+    </script>
+</body>
+</html>
