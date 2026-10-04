@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>İstanbul Beykent Üniversitesi YBS Kulübü</title>
+    <!-- Tarayıcı Sekmesi Logosu -->
+    <link rel="icon" type="image/jpeg" href="logo.jpeg">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -392,7 +394,7 @@
                 renderLinktree(links);
                 renderAdminLinks(links);
 
-                // Etkinlikler (Örnekleri sildik, sadece Firebase'den gelenler olacak)
+                // Etkinlikler
                 const eventsSnap = await getDocs(collection(db, "events"));
                 let events = [];
                 eventsSnap.forEach(docSnap => events.push({ id: docSnap.id, ...docSnap.data() }));
@@ -475,7 +477,7 @@
                 card.className = 'bg-white/80 dark:bg-slate-900/60 backdrop-blur-xl border border-slate-200 dark:border-slate-800/80 rounded-[2rem] overflow-hidden flex flex-col justify-between group hover:border-indigo-500/50 transition-all duration-500 shadow-xl hover:-translate-y-1';
                 card.innerHTML = `
                     <div>
-                        <!-- Dikey ve Yatay Fotoğraflar İçin Kusursuz Oran Ayarı (object-contain & bg arkaplan) -->
+                        <!-- Dikey ve Yatay Fotoğraflar İçin Kusursuz Oran Ayarı -->
                         <div onclick="openLightbox('${ev.image}')" class="relative h-72 sm:h-80 overflow-hidden bg-slate-950 cursor-pointer flex items-center justify-center p-2">
                             <img src="${ev.image}" alt="${ev.title}" class="w-full h-full object-contain group-hover:scale-105 transition duration-700">
                             <span class="absolute top-4 left-4 px-3.5 py-1.5 rounded-full text-xs font-extrabold ${isUpcoming ? 'bg-emerald-500/90 text-white shadow-lg shadow-emerald-500/25' : 'bg-slate-800/90 text-slate-300'} backdrop-blur-md">
@@ -565,7 +567,6 @@
                         const ctx = canvas.getContext('2d');
                         ctx.drawImage(img, 0, 0, width, height);
                         
-                        // Sıkıştırılmış JPEG formatı (Firebase limitine takılmaması için)
                         const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.75);
                         document.getElementById('event-image-base64').value = compressedDataUrl;
                     }
